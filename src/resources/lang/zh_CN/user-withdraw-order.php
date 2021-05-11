@@ -1,0 +1,38 @@
+<?php 
+return [
+    'labels' => [
+        'UserWithdrawOrder' => 'UserWithdrawOrder',
+        'user-withdraw-order' => 'UserWithdrawOrder',
+    ],
+    'fields' => [
+        'user_id' => 'user_id',
+        'user_level' => '用户层级',
+        'channel_id' => '渠道',
+        'wallet_type' => '钱包类型',
+        'amount' => '提现金额',
+        'actual_amount' => '实际到账金额',
+        'rate' => '手续费%',
+        'rate_amount' => '收费金额',
+        'withdraw_type' => '提现类型',
+        'order_sn' => '订单编号',
+        'platform_sn' => '支付平台订单号',
+        'withdraw_channel_id' => '提现渠道ID',
+        'withdraw_channel_item_id' => '提现渠道项ID',
+        'remark' => '备注',
+        'remark_slug' => '备注语言标识',
+        'is_pay' => '是否已付款',
+        'pay_time' => '付款时间',
+        'wallet_log_id' => '入账流水',
+        'back_wallet_log_id' => '退款入账流水',
+        'order_status' => '订单状态',
+        'back_time' => '回调时间',
+        'local' => '用户语言包',
+        'lang' => '用户语言',
+        'auto_check' => '自动审核',
+        'input_data' => '收款信息',
+        'ip' => 'IP',
+        'imei' => 'imei',
+    ],
+    'options' => [
+    ],
+];
