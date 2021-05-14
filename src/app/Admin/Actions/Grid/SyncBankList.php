@@ -38,6 +38,11 @@ class SyncBankList extends RowAction
             }
             return $this->response()->message('更新成功')->refresh();
         }
+
+        if ($rc->slug === PlatformType::FPay) {
+
+        }
+
         return $this->response()->error('不支持');
 
     }

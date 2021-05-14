@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\Grid\CheckUserWithdrawPayStatus;
 use App\Admin\Actions\Grid\UserWithdrawCheckDataUpdate;
+use App\Admin\Actions\Grid\WithdrawOrderDirectPassAction;
 use App\Admin\Actions\Grid\WithdrawOrderPassAction;
 use App\Admin\Actions\Grid\WithdrawOrderRefundAction;
 use App\Admin\Actions\Grid\WithdrawOrderRejectAction;
@@ -136,6 +137,7 @@ class UserWithdrawOrderController extends AdminController
                     if ($item->order_status === WithdrawOrderStatusType::Checking) $actions->append(WithdrawOrderRejectAction::make());
                     if (in_array($item->order_status, [WithdrawOrderStatusType::CheckError, WithdrawOrderStatusType::PayError]) && \Admin::user()->can('user-refund')) $actions->append(WithdrawOrderRefundAction::make());
                     if ($item->order_status === WithdrawOrderStatusType::Checking && \Admin::user()->can('user-refund')) $actions->append(WithdrawOrderPassAction::make());
+                    if ($item->order_status === WithdrawOrderStatusType::Checking && \Admin::user()->can('user-refund')) $actions->append(WithdrawOrderDirectPassAction::make());
                     if ($item->order_status === WithdrawOrderStatusType::Paying) {
                         $actions->append(CheckUserWithdrawPayStatus::make());
                         $actions->append(WithdrawOrderRejectAction::make());

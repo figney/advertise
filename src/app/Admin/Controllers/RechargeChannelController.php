@@ -92,7 +92,7 @@ class RechargeChannelController extends AdminController
                 }
             });
 
-            $form->image('cover', '封面')->autoUpload()->uniqueName()->width(3)->required();
+            $form->image('cover', '封面')->autoUpload()->uniqueName()->width(3);
 
             $form->embeds('remark', '充值说明', function (Form\EmbeddedForm $form) use ($language) {
                 foreach ($language as $lang) {

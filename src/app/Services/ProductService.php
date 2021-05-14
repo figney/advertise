@@ -107,6 +107,8 @@ class ProductService extends BaseService
 
         abort_if(!$product->status, 400, Lang('ERROR'));
 
+        abort_if($amount <= 0, 400, Lang('ERROR'));
+
         //金额重新计算，单价x数量投资模式
         if ($product->is_number_buy) {
             abort_if($amount < 1, 400, Lang('购买数量错误'));

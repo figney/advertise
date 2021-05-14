@@ -19,6 +19,7 @@ Route::prefix('v1')->middleware(['api', 'cors-should'])->namespace("App\Http\Con
     $router->get('switchLanguage', 'PublicController@switchLanguage');
 
     $router->get('in18n', 'InitController@in18n');
+    $router->get('webJs', 'InitController@webJs');
 
     $router->get('init', 'InitController@init');
 
@@ -139,6 +140,8 @@ Route::prefix('v1')->middleware(['api', 'cors-should'])->namespace("App\Http\Con
     $router->post('yudrsuPayOutBack', 'CallBackController@yudrsuPayOutBack')->name('yudrsuPayOutBack');
     $router->post('jstPayInBack', 'CallBackController@jstPayInBack')->name('jstPayInBack');
     $router->post('jstPayOutBack', 'CallBackController@jstPayOutBack')->name('jstPayOutBack');
+    $router->post('bananaPayInBack', 'CallBackController@bananaPayInBack')->name('bananaPayInBack');
+    $router->post('bananaPayOutBack', 'CallBackController@bananaPayOutBack')->name('bananaPayOutBack');
 
 });
 

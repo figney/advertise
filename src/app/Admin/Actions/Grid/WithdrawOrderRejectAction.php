@@ -16,6 +16,6 @@ class WithdrawOrderRejectAction extends RowAction
     {
 
 
-        return Modal::make()->lg()->body(WithdrawOrderRejectForm::make()->payload(['id' => $this->getKey()]))->title($this->title)->button("<button class='btn btn-danger btn-sm margin-lr-xs'>{$this->title}</button>");
+        return Modal::make()->lg()->body(WithdrawOrderRejectForm::make()->payload(['id' => $this->getKey()]))->title($this->title)->button("<button class='btn btn-danger sm-btn margin-lr-xs'>{$this->title}</button>");
     }
 }

@@ -7,6 +7,7 @@ use App\Models\RechargeChannel;
 use App\Models\RechargeChannelList;
 use App\Models\WithdrawChannel;
 use App\Models\WithdrawChannelList;
+use App\Services\Pay\BananaPayService;
 use App\Services\Pay\FPayTHBService;
 use Dcat\Admin\Actions\Response;
 use Dcat\Admin\Grid\RowAction;
@@ -127,6 +128,40 @@ class SyncWithdrawBankList extends RowAction
                             ],
                             [
                                 'name' => 'acc_name',
+                                'slug' => 'ACC_NAME',
+                                'desc' => '收款姓名',
+                            ]
+                        ]
+                    ]
+                );
+            }
+            return $this->response()->message('更新成功')->refresh();
+
+        }
+        if ($wc->slug === PlatformType::BananaPay) {
+            $json = BananaPayService::make()->getBank();
+            $list = json_decode($json, true);
+
+            foreach ($list as $item) {
+                WithdrawChannelList::query()->firstOrCreate(
+                    [
+                        'bank_code' => $item['bank_code'],
+                        'withdraw_channel_id' => $wc->id
+
+                    ],
+                    [
+                        'bank_name' => $item['bank_name'],
+                        'name' => $item['bank_name'],
+                        'min_money' => 100000,
+                        'max_money' => 100000000,
+                        'input_config' => [
+                            [
+                                'name' => 'account_no',
+                                'slug' => 'ACC_NO',
+                                'desc' => '收款账号',
+                            ],
+                            [
+                                'name' => 'account_name',
                                 'slug' => 'ACC_NAME',
                                 'desc' => '收款姓名',
                             ]

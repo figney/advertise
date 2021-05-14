@@ -25,7 +25,13 @@ class VipController extends AdminController
             $grid->column('name')->editable();
             $grid->column('level', '等级');
             $grid->column('task_num', '任务数');
-            $grid->column('task_num_money')->display(fn($v) => ShowMoneyLine($v));
+            $grid->column('task_num_money_list','套餐价格')->display(function ($v) {
+                $html = "";
+                foreach ($v as $vv) {
+                    $html .="<div>".$vv['day']."天 ".ShowMoneyLine($vv['money'])."</div>";
+                }
+                return $html;
+            });
 
 
             $grid->column('updated_at');

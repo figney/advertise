@@ -26,7 +26,7 @@ class TransferVoucherRejectAction extends RowAction
     {
 
 
-        return Modal::make()->lg()->body(TransferVoucherRejectForm::make()->payload(['id' => $this->getKey()]))->title($this->title)->button("<span class='mr-1 text-danger'>{$this->title}</span>");
+        return Modal::make()->lg()->body(TransferVoucherRejectForm::make()->payload(['id' => $this->getKey()]))->title($this->title)->button("<span class='btn btn-outline-danger sm-btn margin-lr-xs'>{$this->title}</span>");
     }
 
 }

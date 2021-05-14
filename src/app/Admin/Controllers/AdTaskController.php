@@ -25,7 +25,7 @@ class AdTaskController extends AdminController
             $grid->column('money')->display(fn($v) => ShowMoneyLine($v))->sortable();
             $grid->column('complete_click_number')->sortable();
             $grid->column('total')->sortable();
-            $grid->column('rest','已接数量')->sortable();
+            $grid->column('rest', '已接数量')->sortable();
             $grid->column('valid_hour')->sortable();
             $grid->column('overdue_return')->bool();
             $grid->column('vip_level_max_config')->display(function ($v) {
@@ -104,7 +104,12 @@ class AdTaskController extends AdminController
 
 
             $form->tab('分享内容', function (Form $form) use ($language) {
-                $form->image('adData.share_image', '分享图片')->autoUpload()->uniqueName();
+                $form->image('adData.share_image', '分享图片')->autoUpload()->uniqueName()->compress([
+                    'width' => 600,
+                    'height' => 400,
+                    'quality' => 90,
+                    'crop' => true,
+                ])->help('600x400');
                 $form->embeds('adData.share_content', '分享文案', function (Form\EmbeddedForm $form) use ($language) {
                     foreach ($language as $lang) {
                         $lang->show ? $form->textarea($lang->slug, $lang->name)->required() : $form->hidden($lang->slug, $lang->name);
@@ -127,7 +132,12 @@ class AdTaskController extends AdminController
 
             $form->tab('广告内容', function (Form $form) use ($language) {
 
-                $form->image('icon', '任务图标')->autoUpload()->uniqueName()->required()->width(2);
+                $form->image('icon', '任务图标')->autoUpload()->uniqueName()->required()->width(2)->compress([
+                    'width' => 200,
+                    'height' => 2000,
+                    'quality' => 90,
+                    'crop' => true,
+                ])->help('200x200');
 
                 $form->embeds('adData.title', '标题', function (Form\EmbeddedForm $form) use ($language) {
                     foreach ($language as $lang) {

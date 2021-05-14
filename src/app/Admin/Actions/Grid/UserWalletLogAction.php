@@ -35,7 +35,7 @@ class UserWalletLogAction extends RowAction
         $form = UserWalletLogTable::make()->payload(['user_id' => $this->user_id]);
 
 
-        return Modal::make()->xl()->body($form)->title($this->title)->button($this->title);
+        return Modal::make()->xl()->body($form)->title($this->title)->button("<span class='btn btn-outline-info sm-btn margin-lr-xs'>{$this->title}</span>");
     }
 
 }

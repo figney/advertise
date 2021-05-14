@@ -58,6 +58,8 @@ class SettingController extends AdminController
                 $form->url('socket_url', '消息推送地址')->help('socket_url');
                 $form->url('web_url', '前端地址')->help('web_url');
 
+                $form->textarea('web_js_code', '前端JS代码')->help('web_js_code');
+
 
             })->tab("用户", function (Form $form) {
 

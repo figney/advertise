@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class WithdrawOrderRefundAction extends RowAction
 {
-    protected $title = "<button class='btn btn-warning btn-sm margin-right-xs'>钱包退款</button>";
+    protected $title = "<button class='btn btn-warning sm-btn margin-right-xs'>钱包退款</button>";
 
     public function handle(Request $request)
     {

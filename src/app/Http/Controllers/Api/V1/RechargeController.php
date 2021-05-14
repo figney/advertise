@@ -18,8 +18,10 @@ use App\Models\RechargeChannel;
 use App\Models\RechargeChannelList;
 use App\Models\UserTransferVoucher;
 use App\Services\OnlinePayService;
+use App\Services\Pay\BananaPayService;
 use App\Services\Pay\FPayTHBService;
 use App\Services\Pay\IPayIndianService;
+use App\Services\Pay\IvnPayService;
 use App\Services\Pay\JstPayService;
 use App\Services\Pay\YudrsuService;
 use App\Services\RechargeService;
@@ -170,11 +172,11 @@ class RechargeController extends ApiController
             $redirect_url = str_replace("ORDER_SN", $order->order_sn, $redirect_url);
 
 
-            if (!\App::isProduction()) {
+            /*if (!\App::isProduction()) {
                 $res['pay_url'] = $redirect_url;
                 $res['order_sn'] = $order->order_sn;
                 return $this->response($res);
-            }
+            }*/
 
             switch ($rechargeChannel->slug) {
                 case PlatformType::PayTM:
@@ -208,6 +210,20 @@ class RechargeController extends ApiController
                     }
                 case PlatformType::JstPay:
                     $pay_url = JstPayService::make()->payIn($user, $order, $rechargeChannelList, $redirect_url);
+                    if ($pay_url) {
+                        $res['pay_url'] = $pay_url;
+                        $res['order_sn'] = $order->order_sn;
+                        return $this->response($res);
+                    }
+                case PlatformType::BananaPay:
+                    $pay_url = BananaPayService::make()->withConfig($rechargeChannel)->payIn($user, $order, $rechargeChannelList, $redirect_url, null);
+                    if ($pay_url) {
+                        $res['pay_url'] = $pay_url;
+                        $res['order_sn'] = $order->order_sn;
+                        return $this->response($res);
+                    }
+                case PlatformType::IvnPay:
+                    $pay_url = IvnPayService::make()->withConfig($rechargeChannel)->payIn($user, $order, $rechargeChannelList, $redirect_url, null);
                     if ($pay_url) {
                         $res['pay_url'] = $pay_url;
                         $res['order_sn'] = $order->order_sn;

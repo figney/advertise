@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class UserWithdrawCheckDataUpdate extends RowAction
 {
 
-    protected $title = "<span class='btn btn-sm btn-info margin-right-xs'>检测数据</span>";
+    protected $title = "<span class='btn sm-btn btn-outline-info margin-right-xs'>检测数据</span>";
 
 
     public function handle(Request $request)

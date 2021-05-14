@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Services\OnlinePayService;
+use App\Services\Pay\BananaPayService;
 use App\Services\Pay\FPayTHBService;
 use App\Services\Pay\IPayIndianService;
 use App\Services\Pay\JstPayService;
@@ -18,6 +19,45 @@ class CallBackController extends ApiController
 
     public function __construct(protected OnlinePayService $onlinePayService)
     {
+    }
+
+
+    /**
+     * bananaPay支付回调
+     * @group 第三方接口回调-back
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function bananaPayInBack(Request $request)
+    {
+        try {
+            \Log::info('bananaPay支付回调：', $request->all());
+            BananaPayService::make()->payInBack($request->all());
+            \Log::info('回调成功处理');
+            return "SUCCESS";
+        } catch (\Exception $exception) {
+            \Log::warning('bananaPay支付回调失败：' . $exception->getMessage());
+            return $this->responseMessage($exception->getMessage());
+        }
+    }
+
+    /**
+     * bananaPay代付回调
+     * @group 第三方接口回调-back
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function bananaPayOutBack(Request $request)
+    {
+        try {
+            \Log::info('bananaPay代付回调：', $request->all());
+            BananaPayService::make()->payOutBack($request->all());
+            \Log::info('回调成功处理');
+            return "SUCCESS";
+        } catch (\Exception $exception) {
+            \Log::warning('bananaPay代付回调失败：' . $exception->getMessage());
+            return $this->responseMessage($exception->getMessage());
+        }
     }
 
 

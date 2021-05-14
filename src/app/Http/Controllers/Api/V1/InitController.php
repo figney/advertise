@@ -122,6 +122,15 @@ class InitController extends ApiController
 
     }
 
+    public function webJs()
+    {
+        $web_js_code = Setting('web_js_code');
+
+        return response($web_js_code, 200, [
+            'Content-Type' => 'text/javascript'
+        ]);
+    }
+
 
     /**
      * 前端国际化配置-in18n

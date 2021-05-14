@@ -16,7 +16,7 @@ class TransferVoucherPassAction extends RowAction
     {
 
 
-        return Modal::make()->lg()->body(TransferVoucherPassForm::make()->payload(['id' => $this->getKey()]))->title($this->title)->button("<span class='padding-right-sm text-success'>{$this->title}<span");
+        return Modal::make()->lg()->body(TransferVoucherPassForm::make()->payload(['id' => $this->getKey()]))->title($this->title)->button("<span class='btn btn-outline-success sm-btn margin-lr-xs'>{$this->title}<span");
     }
 
     /*public function handle(Request $request)

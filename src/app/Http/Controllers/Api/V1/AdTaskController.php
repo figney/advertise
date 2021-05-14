@@ -26,6 +26,7 @@ class AdTaskController extends ApiController
      * @queryParam tag string 标签  hot  rec
      * @queryParam page int   页码
      * @queryParam page_size int
+     * @queryParam random bool
      * @group 广告任务-ggrw
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -35,15 +36,21 @@ class AdTaskController extends ApiController
         try {
             $page_size = (int)$request->input('page_size', 20);
 
-            $orm = $this->adTaskService->getOrm()->orderByDesc('order')->with('adData:id,ad_task_id,title');
+            $orm = $this->adTaskService->getOrm()->with('adData:id,ad_task_id,title');
             $level = (int)$request->input('level', -1);
             $tag = $request->input('tag');
+            $random = $request->boolean('random');
             if ($level >= 0) {
                 $orm->where('vip_level', $level);
             }
 
             if ($tag) {
                 $orm->whereJsonContains('tags', $tag);
+            }
+            if ($random) {
+                $orm->inRandomOrder();
+            } else {
+                $orm->orderByDesc('order');
             }
 
             $list = $orm->paginate($page_size);

@@ -22,6 +22,7 @@ class YudrsuService extends BaseService
     protected string $mer_no;
     protected string $key;
     protected string $pname;
+    protected string $countryCode;
 
     protected string $payInHost = "http://zvfdh.yudrsu.com";
     protected string $payOurHost = "http://wrysc.yudrsu.com";
@@ -33,6 +34,7 @@ class YudrsuService extends BaseService
         $this->mer_no = $rechargeChannel->configValue('mer_no');
         $this->key = $rechargeChannel->configValue('key');
         $this->pname = $rechargeChannel->configValue('pname');
+        $this->countryCode = $rechargeChannel->configValue('countryCode');
 
         return $this;
 
@@ -46,15 +48,14 @@ class YudrsuService extends BaseService
 
         $faker = $this->faker();
 
-        $phone = $faker->phoneNumber;
 
         $data['mer_no'] = $this->mer_no;
         $data['mer_order_no'] = $userRechargeOrder->order_sn;
-        $data["pname"] = "BILL RELOAD";//$user->name;
+        $data["pname"] = $user->name;
         $data["pemail"] = $faker->email;
         $data["phone"] = str_replace("+", "", $faker->phoneNumber);
         $data["order_amount"] = $userRechargeOrder->amount;
-        $data["countryCode"] = Setting('fiat_code');
+        $data["countryCode"] = $this->countryCode;
         $data["ccy_no"] = Setting('fiat_code');
         $data["busi_code"] = $rechargeChannelList->bank_code;
         $data["goods"] = "goods";
@@ -65,7 +66,7 @@ class YudrsuService extends BaseService
 
 
         $res = \Http::post("{$this->payInHost}/ty/orderPay", $data);
-        abort_if($res->clientError(), $res->status(), "请求失败");
+        abort_if($res->clientError(), $res->status(), "The request failed");
         $res_data = $res->json();
 
 

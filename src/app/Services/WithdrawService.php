@@ -25,6 +25,7 @@ use App\Models\Wallet;
 use App\Models\WalletLog;
 use App\Models\WithdrawChannel;
 use App\Models\WithdrawChannelList;
+use App\Services\Pay\BananaPayService;
 use App\Services\Pay\FPayTHBService;
 use App\Services\Pay\IPayIndianService;
 use App\Services\Pay\JstPayService;
@@ -155,6 +156,9 @@ class WithdrawService extends BaseService
                 break;
             case PlatformType::JstPay:
                 JstPayService::make()->payOut($userWithdrawOrder, $channel);
+                break;
+            case PlatformType::BananaPay:
+                BananaPayService::make()->payOut($userWithdrawOrder, $channel);
                 break;
             default:
                 abort(400, "当前代付渠道暂未接入");

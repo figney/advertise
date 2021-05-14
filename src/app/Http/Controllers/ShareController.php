@@ -36,6 +36,8 @@ class ShareController extends Controller
             $describe = data_get($adTask->adData->describe, $local);
             $image = ImageUrl($adTask->adData->share_image);
 
+            $title = str_replace("{URL}", "", $title);
+
         } else {
             $appShareInfo = Share::query()->inRandomOrder()->first();
             $title = data_get($appShareInfo->title, $local);
@@ -46,13 +48,19 @@ class ShareController extends Controller
 
         if ($params == "/") $params = "";
 
+
+        $go_url = $web_url . $params;
+
+        $go_url = str_replace("/at", "", $go_url);
+
+
         $data['app_id'] = '';
-        $data['url'] = url()->current() . $request->getRequestUri();
+        $data['url'] = $go_url;
         $data['site_name'] = '';
         $data['title'] = $title;
         $data['description'] = $describe;
         $data['image_url'] = $image;
-        $data['go_url'] = $web_url . $params;
+        $data['go_url'] = $go_url;
 
 
         return view('share', $data);
