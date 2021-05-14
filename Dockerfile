@@ -20,6 +20,7 @@ COPY src .
 #####################################
 RUN composer install
 RUN php artisan horizon:publish
+RUN php artisan admin:publish
 
 #
 #--------------------------------------------------------------------------
