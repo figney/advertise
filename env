@@ -1,9 +1,9 @@
 APP_NAME=MV
-APP_ENV=local
+#APP_ENV=local
 APP_KEY=base64:z25TrrL6qw41zJ0SI15DuJGv4c2lPK2Ae1OtLo/Wjj4=
 APP_DEBUG=true
-APP_URL=http://localhost
-CDN_URL=http://localhost
+APP_URL=https://www.60s.ooo
+CDN_URL=https://www.60s.ooo
 
 LOG_CHANNEL=daily
 LOG_LEVEL=debug
@@ -11,13 +11,13 @@ LOG_LEVEL=debug
 DB_CONNECTION=mysql
 DB_HOST=192.168.6.2
 DB_PORT=3306
-DB_DATABASE=advertise-thailand
+DB_DATABASE=advertise-malaysia
 DB_USERNAME=root
 DB_PASSWORD=1234qwer
 
 MDB_HOST=192.168.6.2
 MDB_PORT=27017
-MDB_DATABASE=advertise-thailand
+MDB_DATABASE=advertise-malaysia
 MDB_USERNAME=root
 MDB_PASSWORD=1234qwer
 
@@ -26,7 +26,7 @@ MDB_PASSWORD=1234qwer
 #ADMIN_HTTPS=true
 ADMIN_DB_HOST=192.168.6.2
 ADMIN_DB_PORT=3306
-ADMIN_DB_DATABASE=advertise-thailand
+ADMIN_DB_DATABASE=advertise-malaysia
 ADMIN_DB_USERNAME=root
 ADMIN_DB_PASSWORD=1234qwer
 
@@ -77,12 +77,15 @@ TELESCOPE_ENABLED=false
 #印度
 #TIMEZONE=Asia/Kolkata
 #泰国
-TIMEZONE=Asia/Bangkok
+#TIMEZONE=Asia/Bangkok
 #越南
 #TIMEZONE=Asia/Ho_Chi_Minh
+#马来西亚
+TIMEZONE=Asia/Kuala_Lumpur
 
 RECAPTCHA=6LeMVGgaAAAAAMq6fIipeuBOkdqjvLm0H0OkbWCN
 
-SOCKET_URL=http://advertise-message-bus-thailand:7001
+SOCKET_URL=https://malaysia-message-bus-ipit43q4oq-as.a.run.app:7001
 
-LOCAL=vi_VN
+#ms-MY
+LOCAL=en-MY
