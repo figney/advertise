@@ -94,8 +94,6 @@ RUN php artisan admin:publish
 #
 FROM base as final
 
-EXPOSE 80
-
 WORKDIR /var/www/html
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html
@@ -132,5 +130,6 @@ ADD env ./.env
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
+EXPOSE 8080
 
 CMD [ "supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
