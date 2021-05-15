@@ -103,7 +103,7 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 COPY --from=builder /scripts .
 
-RUN chmod 755 storage -R
+RUN chmod 777 storage -R
 
 FROM final
 
