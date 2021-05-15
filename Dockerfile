@@ -130,6 +130,6 @@ ADD env ./.env
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD [ "supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
