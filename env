@@ -1,7 +1,7 @@
 APP_NAME=MV
-#APP_ENV=local
+APP_ENV=local
 APP_KEY=base64:z25TrrL6qw41zJ0SI15DuJGv4c2lPK2Ae1OtLo/Wjj4=
-APP_DEBUG=false
+APP_DEBUG=true
 APP_URL=https://www.60s.ooo
 CDN_URL=https://www.60s.ooo
 
