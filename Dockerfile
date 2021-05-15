@@ -124,7 +124,7 @@ RUN crontab laravel
 
 WORKDIR /var/www/html
 
-RUN chmod 755 storage -R
+RUN chmod 777 storage -R
 
 ADD env ./.env
 
