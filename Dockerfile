@@ -126,7 +126,7 @@ WORKDIR /var/www/html
 
 RUN chmod 777 storage -R
 
-ADD env ./.env
+#ADD env ./.env
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
