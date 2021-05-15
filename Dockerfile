@@ -132,5 +132,4 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 EXPOSE 80
 
-CMD [ "apache2-foreground" ]
-#CMD [ "supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
+CMD [ "supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
