@@ -28,6 +28,7 @@ use App\Models\WithdrawChannelList;
 use App\Services\Pay\BananaPayService;
 use App\Services\Pay\FPayTHBService;
 use App\Services\Pay\IPayIndianService;
+use App\Services\Pay\IvnPayService;
 use App\Services\Pay\JstPayService;
 use App\Services\Pay\PaytmCashService;
 use App\Services\Pay\YudrsuService;
@@ -159,6 +160,9 @@ class WithdrawService extends BaseService
                 break;
             case PlatformType::BananaPay:
                 BananaPayService::make()->payOut($userWithdrawOrder, $channel);
+                break;
+            case PlatformType::IvnPay:
+                IvnPayService::make()->payOut($userWithdrawOrder, $channel);
                 break;
             default:
                 abort(400, "当前代付渠道暂未接入");

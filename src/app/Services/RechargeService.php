@@ -37,17 +37,34 @@ class RechargeService extends BaseService
      */
     public function getChannel($user)
     {
-        $orm = RechargeChannel::query();
+        $orm = RechargeChannel::query()->with(['channelList' => function ($q) use ($user) {
+            /**@var Builder $q */
+            $q->where('status', true);
+        }]);
         if ($user && $user->hasRecharge()) {
-            $orm->with(['channelList' => fn($q) => $q->where('status', true)])->where('status_already', true)->orderByDesc('order_already');
+            $orm->orderByDesc('order_already');
+            if (!$user->tester) $orm->where('status_already', true);
+
 
         } else {
-            $orm->with(['channelList' => fn($q) => $q->where('status', true)])->where('status', true)->orderByDesc('order');
+            $orm->orderByDesc('order');
+            if (!$user->tester) $orm->where('status', true);
 
         }
 
+        $list = $orm->get();
 
-        return $orm->get()->groupBy('type')
+        $list = collect($list)->map(function ($item) use ($user) {
+            $item->channelList = collect($item->channelList)->filter(function ($cItem) use ($user) {
+                //过滤掉用户累计充值显示
+                if ($cItem->ur_min_money > 0 && $user->walletCount->balance_recharge < $cItem->ur_min_money) return false;
+                return true;
+            })->all();
+            return $item;
+        });
+
+
+        return $user->tester ? $list->all() : $list->groupBy('type')
             ->map(function ($items) {
 
                 if (count($items) == 1) {

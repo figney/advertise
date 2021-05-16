@@ -37,7 +37,7 @@ class RechargeOrderSuccessNotification extends BaseNotification implements INoti
     public function toParams(): array
     {
         return [
-            'amount' => $this->userRechargeOrder->amount,
+            'amount' => MoneyFormat($this->userRechargeOrder->amount),
             'wallet_type_lang' => $this->userRechargeOrder->wallet_type
         ];
     }

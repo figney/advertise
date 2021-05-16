@@ -76,7 +76,7 @@ class RechargeChannelController extends AdminController
             $form->radio('type')->options(RechargeChannelType::asSelectArray())->required()->width(3);
 
             $form->text('name')->required()->width(3);
-            $form->radio('slug', '渠道标识')->options(PlatformType::asSelectArray())->required();
+            $form->select('slug', '渠道标识')->options(PlatformType::asSelectArray())->required()->width(2);
             $form->number('min_money', '最低充值金额')->required();
             $form->number('max_money', '最高充值金额')->required()->help('0为不限制');
             $form->number('order', '未充值用户排序')->required();
@@ -126,6 +126,8 @@ class RechargeChannelController extends AdminController
                     $form->number('order', '排序')->default(1)->required();
                     $form->number('min_money', '最低金额')->default(1)->required()->help('防止用户输入省略金额');
                     $form->number('max_money', '最大金额')->help('0为不限制');
+
+                    $form->number('ur_min_money', '累计充值起始金额')->help('0为不限制');
 
                     $form->switch('status', '启用');
 

@@ -4,12 +4,14 @@
 namespace App\Services;
 
 
+use App\Enums\QueueType;
 use App\Enums\TaskTargetType;
 use App\Enums\UserHookType;
 use App\Enums\WalletLogSlug;
 use App\Enums\WalletLogType;
 use App\Enums\WalletType;
 use App\Enums\WithdrawOrderStatusType;
+use App\Jobs\SocketIoToUser;
 use App\Models\Notifications\UserAwardNotification;
 use App\Models\Task;
 use App\Models\User;
@@ -107,6 +109,13 @@ class TaskService extends BaseService
         $user = User::query()->find($invite_user_id);
         //判读上下级关系是否对等
         if ($son_user->invite_id !== $user->id) return;
+
+        dispatch(new SocketIoToUser($user, 'user_invite', [
+            'son_user_id' => $son_user->id,
+            'level' => $level,
+            'invite_total_all' => $user->invite->total_all,
+        ]))->onQueue(QueueType::send);
+
 
         $orm = $this->getTaskByHookOrm(UserHookType::Invite)->with(['userTask' => fn($q) => $q->where('user_id', $user->id)]);
         $list = $orm->get();

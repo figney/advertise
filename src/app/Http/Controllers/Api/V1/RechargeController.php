@@ -20,6 +20,7 @@ use App\Models\UserTransferVoucher;
 use App\Services\OnlinePayService;
 use App\Services\Pay\BananaPayService;
 use App\Services\Pay\FPayTHBService;
+use App\Services\Pay\HaoDaMallPayService;
 use App\Services\Pay\IPayIndianService;
 use App\Services\Pay\IvnPayService;
 use App\Services\Pay\JstPayService;
@@ -226,6 +227,14 @@ class RechargeController extends ApiController
                     $pay_url = IvnPayService::make()->withConfig($rechargeChannel)->payIn($user, $order, $rechargeChannelList, $redirect_url, null);
                     if ($pay_url) {
                         $res['pay_url'] = $pay_url;
+                        $res['order_sn'] = $order->order_sn;
+                        return $this->response($res);
+                    }
+                case PlatformType::HaoDaMallPay:
+                    $pay_url = HaoDaMallPayService::make()->withConfig($rechargeChannel)->payIn($user, $order, $rechargeChannelList, $redirect_url, null);
+                    if ($pay_url) {
+                        $res['pay_url'] = $pay_url;
+                        $res['is_form'] = true;
                         $res['order_sn'] = $order->order_sn;
                         return $this->response($res);
                     }

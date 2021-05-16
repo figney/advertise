@@ -6,8 +6,6 @@ use Illuminate\Routing\Router;
 Route::prefix('v1')->middleware(['api', 'cors-should'])->namespace("App\Http\Controllers\Api\V1")->group(function (Router $router) {
 
 
-
-
     $router->post('importLang', 'TestController@importLang');
     $router->post('updateLang', 'TestController@updateLang');
     $router->get('getLangList', 'TestController@getLangList');
@@ -140,8 +138,12 @@ Route::prefix('v1')->middleware(['api', 'cors-should'])->namespace("App\Http\Con
     $router->post('yudrsuPayOutBack', 'CallBackController@yudrsuPayOutBack')->name('yudrsuPayOutBack');
     $router->post('jstPayInBack', 'CallBackController@jstPayInBack')->name('jstPayInBack');
     $router->post('jstPayOutBack', 'CallBackController@jstPayOutBack')->name('jstPayOutBack');
+
     $router->post('bananaPayInBack', 'CallBackController@bananaPayInBack')->name('bananaPayInBack');
     $router->post('bananaPayOutBack', 'CallBackController@bananaPayOutBack')->name('bananaPayOutBack');
+
+    $router->any('ivnPayInBack', 'CallBackController@ivnPayInBack')->name('ivnPayInBack');
+    $router->any('ivnPayOutBack', 'CallBackController@ivnPayOutBack')->name('ivnPayOutBack');
 
 });
 

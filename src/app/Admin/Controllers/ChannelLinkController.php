@@ -38,8 +38,8 @@ class ChannelLinkController extends AdminController
 
             $grid->column('address', '推广地址')->display(function () {
 
-                $addressList = $this->channel->address();
-                if (count($addressList) <= 0) return "<span class='text-danger'>渠道未绑定域名，请联系管理员</span>";
+                $addressList = $this->channel?->address();
+                if (!$addressList || count($addressList) <= 0) return "<span class='text-danger'>渠道未绑定域名，请联系管理员</span>";
 
                 $html = "";
                 foreach ($addressList as $address) {

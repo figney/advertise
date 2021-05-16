@@ -4,10 +4,12 @@
 namespace App\Services;
 
 
+use App\Enums\QueueType;
 use App\Enums\UserAdTaskType;
 use App\Enums\WalletLogSlug;
 use App\Enums\WalletLogType;
 use App\Enums\WalletType;
+use App\Jobs\SocketIoToUser;
 use App\Models\AdTask;
 use App\Models\Notifications\UserAdTaskCommissionNotification;
 use App\Models\Notifications\UserAdTaskFinishedNotification;
@@ -121,10 +123,9 @@ class AdTaskService extends BaseService
             'imei' => $imei,
         ]);
         $userAdTask->increment('now_click_number');
-
+        $user = $userAdTask->user;
         if ($userAdTask->now_click_number >= $userAdTask->complete_click_number && $userAdTask->status == UserAdTaskType::InProgress) {
 
-            $user = $userAdTask->user;
 
             $money = $userAdTask->money;
 
@@ -138,6 +139,12 @@ class AdTaskService extends BaseService
             $user->notify(new UserAdTaskFinishedNotification($money, $userAdTask));
 
             UserHookService::make()->adTaskFinishedHook($userAdTask);
+        } else {
+            dispatch(new SocketIoToUser($user, 'ad_task_click', [
+                'ad_task_id' => $userAdTask->ad_task_id,
+                'now_click_number' => $userAdTask->now_click_number,
+                'complete_click_number' => $userAdTask->complete_click_number,
+            ]))->onQueue(QueueType::send);
         }
 
 

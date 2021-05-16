@@ -28,7 +28,7 @@ class DeviceController extends AdminController
                 $grid->model()->byChannel(null, false);
             }
 
-            $grid->model()->with(['ips', 'user', 'user.wallet', 'user.walletCount', 'user.withdrawOrdersChecking'])->orderBy('created_at', 'desc');
+            $grid->model()->with(['ips', 'user', 'user.wallet', 'user.walletCount', 'user.withdrawOrdersChecking','user.vips'])->orderBy('created_at', 'desc');
 
             $grid->column('imei');
             $grid->column('ip', 'IP / IP数')->display(function () {

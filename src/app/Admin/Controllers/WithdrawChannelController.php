@@ -89,7 +89,7 @@ class WithdrawChannelController extends AdminController
             $language = Language::query()->get();
             $form->radio('type')->options(WithdrawChannelType::asSelectArray())->required();
             $form->text('name', '渠道名称')->required();
-            $form->radio('slug', '渠道标识')->options(PlatformType::asSelectArray())->required();
+            $form->select('slug', '渠道标识')->options(PlatformType::asSelectArray())->required()->width(2);
             $form->rate('rate', '手续费')->required();
             $form->number('min_money')->required();
             $form->number('max_money', '最高提现金额')->required();

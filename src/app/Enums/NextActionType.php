@@ -10,4 +10,5 @@ final class NextActionType extends Enum
     const Wallet = 'Wallet';
     const Money = 'Money';
     const Product = 'Product';
+    const Vip = 'Vip';
 }
