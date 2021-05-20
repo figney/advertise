@@ -49,7 +49,7 @@ class LangService extends BaseService
             'type' => LanguageConfigType::serve,
             'name' => $slug,
             'content' => $content,
-            'group' => '自动生成'
+            'group' => 'AutoGenerate'
         ]);
     }
 

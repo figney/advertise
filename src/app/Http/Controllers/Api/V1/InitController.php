@@ -58,7 +58,7 @@ class InitController extends ApiController
         $res['lang_list'] = LanguageResource::collection(LangService::make()->getLangList());
         $res['default_lang'] = Setting('default_lang');
 
-        $res['i18n'] = LangService::make()->getIn18n('AdWeb');
+        $res['i18n'] = LangService::make()->getIn18n('Client');
 
         //时区
         $res['timezone'] = config('app.timezone');

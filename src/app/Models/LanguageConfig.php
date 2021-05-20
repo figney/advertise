@@ -11,7 +11,7 @@ class LanguageConfig extends Model
     use  Cachable;
 
 
-    protected $table = 'language_config_v2';
+    protected $table = 'language_config';
 
     protected $primaryKey = "slug";
 
