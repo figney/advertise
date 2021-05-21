@@ -35,7 +35,8 @@
         "spatie/laravel-cronless-schedule": "^1.0",
         "tymon/jwt-auth": "^1.0",
         "vinkla/hashids": "^9.1",
-        "wilon/php-number2chinese": "^1.0"
+        "wilon/php-number2chinese": "^1.0",
+        "superbalist/laravel-google-cloud-storage": "^2.2.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

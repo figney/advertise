@@ -32,14 +32,9 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
-        ],
-
-        'public' => [
-            'driver' => 'local',
             'root' => public_path('uploads'),
-            'url' => env('CDN_URL') . '/uploads',
             'visibility' => 'public',
+            'url' => env('CDN_URL') . '/uploads',
         ],
 
         's3' => [
@@ -51,11 +46,14 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-        'admin' => [
-            'driver' => 'local',
-            'root' => public_path('uploads'),
-            'visibility' => 'public',
-            'url' => env('CDN_URL') . '/uploads',
+        'gcs' => [
+            'driver' => 'gcs',
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'advertise-master'),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'advertise-thailand'),
+            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', "uploads"), // optional: /default/path/to/apply/in/bucket
+            'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), // see: Public URLs below
+            'visibility' => 'public', // optional: public|private
+            'key_file' => "./gcloud/google-cloud-storage-credentials.json"
         ],
         /*'oss' => [
             'driver' => 'oss',
