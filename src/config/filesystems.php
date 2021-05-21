@@ -50,10 +50,10 @@ return [
             'driver' => 'gcs',
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'advertise-master'),
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'advertise-thailand'),
-            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', "uploads"), // optional: /default/path/to/apply/in/bucket
-            'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), // see: Public URLs below
+            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', "uploads"),
+            'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null),
             'visibility' => 'public', // optional: public|private
-            'key_file' => "/gcloud/google-cloud-storage-credentials.json"
+            'key_file' => env('GOOGLE_CLOUD_KEY_FILE', "/gcloud/google-cloud-storage-credentials.json")
         ],
         /*'oss' => [
             'driver' => 'oss',
