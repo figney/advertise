@@ -21,7 +21,6 @@ class YudrsuService extends BaseService
 {
     protected string $mer_no;
     protected string $key;
-    protected string $pname;
     protected string $countryCode;
 
     protected string $payInHost = "http://zvfdh.yudrsu.com";
@@ -33,7 +32,6 @@ class YudrsuService extends BaseService
 
         $this->mer_no = $rechargeChannel->configValue('mer_no');
         $this->key = $rechargeChannel->configValue('key');
-        $this->pname = $rechargeChannel->configValue('pname');
         $this->countryCode = $rechargeChannel->configValue('countryCode');
 
         return $this;
