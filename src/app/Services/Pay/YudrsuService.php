@@ -63,7 +63,9 @@ class YudrsuService extends BaseService
         $data["sign"] = $this->sign($data);
 
 
+        \Log::debug("Yudrsu request: " . json_encode($data));
         $res = \Http::post("{$this->payInHost}/ty/orderPay", $data);
+        \Log::debug("Yudrsu response: " . $res);
         abort_if($res->clientError(), $res->status(), "The request failed");
         $res_data = $res->json();
 
