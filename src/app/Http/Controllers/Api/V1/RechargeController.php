@@ -86,7 +86,7 @@ class RechargeController extends ApiController
             $user = $this->user();
 
             $order = $user->rechargeOrders()->where('order_sn', $order_sn)->first();
-            abort_if(!$order, 400, '参数错误');
+            abort_if(!$order, 400, 'ARGS_ERROR');
 
             $res = UserRechargeOrderResource::make($order);
 
@@ -142,7 +142,7 @@ class RechargeController extends ApiController
 
             $rechargeChannel = RechargeChannel::query()->where('type', RechargeChannelType::OnLine)->find($channel_id);
 
-            abort_if(!$rechargeChannel, 400, Lang('参数错误'));
+            abort_if(!$rechargeChannel, 400, Lang('ARGS_ERROR'));
 
 
             $rechargeChannelList = null;

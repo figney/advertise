@@ -29,7 +29,7 @@ trait AppBase
         /* @var User $user */
         $user = auth('api')->user();
         if ($user) {
-            abort_if(!$user->status, 401, Lang('用户异常'));
+            abort_if(!$user->status, 401, Lang('USER_EXCEPTION'));
             if (!$user->last_active_at || Carbon::make($user->last_active_at)->lt(now()->subMinutes(5))) {
                 $user->last_active_at = now();
                 $user->lang = $this->getAgentLanguage();

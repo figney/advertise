@@ -43,20 +43,20 @@ class VipService extends BaseService
     public function buyUserVip(User $user, Vip $vip, int $day, int $number)
     {
 
-        abort_if($number <= 0, 400, Lang('参数错误'));
+        abort_if($number <= 0, 400, Lang('ARGS_ERROR'));
 
         $day_money = $this->getMoneyByDay($vip, $day);
 
-        abort_if($day_money <= 0, 400, Lang('参数错误'));
+        abort_if($day_money <= 0, 400, Lang('ARGS_ERROR'));
 
         $vip_money = $day_money * $number;
-        abort_if($vip_money <= 0, 400, Lang('参数错误'));
+        abort_if($vip_money <= 0, 400, Lang('ARGS_ERROR'));
 
 
         $fee = $vip_money;
 
 
-        abort_if($vip->max_buy_num > 0 && $number > $vip->max_buy_num, 400, Lang('超出最大叠加数量'));
+        abort_if($vip->max_buy_num > 0 && $number > $vip->max_buy_num, 400, Lang('MAX_STACKS_EXCEEDED'));
 
 
         $userVip = null;

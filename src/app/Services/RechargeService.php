@@ -118,7 +118,7 @@ class RechargeService extends BaseService
         //检测类型
         abort_if(!$this->walletService->checkWalletType($wallet_type), 400, Lang('类型错误'));
         //检测连带操作类型
-        abort_if(!in_array($next_action, NextActionType::asArray()), 400, Lang('参数错误'));
+        abort_if(!in_array($next_action, NextActionType::asArray()), 400, Lang('ARGS_ERROR'));
 
         $snowflake = new Snowflake;
 

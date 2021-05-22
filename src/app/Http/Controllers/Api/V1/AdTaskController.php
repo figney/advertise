@@ -96,7 +96,7 @@ class AdTaskController extends ApiController
             }
 
 
-            abort_if(!$adTask, 400, Lang('参数错误'));
+            abort_if(!$adTask, 400, Lang('ARGS_ERROR'));
 
 
             return $this->response(['ad_task' => AdTaskResource::make($adTask)]);
@@ -134,7 +134,7 @@ class AdTaskController extends ApiController
 
             $adTask = $this->adTaskService->getOrm()->find($id);
 
-            abort_if(!$adTask, 400, Lang('参数错误'));
+            abort_if(!$adTask, 400, Lang('ARGS_ERROR'));
 
             $userAdTask = $this->adTaskService->userReceiveAdTask($user, $adTask);
 

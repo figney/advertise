@@ -140,7 +140,7 @@ class FPayTHBService extends BaseService
 
     public function payIn(User $user, UserRechargeOrder $userRechargeOrder, RechargeChannelList $rechargeChannelList, string $redirect_url)
     {
-        abort_if(!$rechargeChannelList, 400, Lang('参数错误'));
+        abort_if(!$rechargeChannelList, 400, Lang('ARGS_ERROR'));
 
         $auth = $this->auth();
 

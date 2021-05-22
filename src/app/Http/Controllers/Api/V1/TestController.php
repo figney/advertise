@@ -100,7 +100,7 @@ class TestController extends ApiController
         }
 
 
-        $list = LanguageConfig::query()->where('group', 'AdWeb')->pluck('content', 'slug');
+        $list = LanguageConfig::query()->where('group', 'Client')->pluck('content', 'slug');
 
         $local = $request->input('local', 'CN');
 
@@ -129,12 +129,14 @@ class TestController extends ApiController
             $this->validatorData($request->all(), [
                 'name' => 'required',
                 'slug' => 'required',
+                'type' => 'required',
                 'group' => 'required',
             ]);
 
             $name = $request->input('name');
             $slug = $request->input('slug');
-            $group = $request->input('group', 'client');
+            $type = $request->input('type');
+            $group = $request->input('group', 'Client');
 
             $slug = Str::upper($slug);
             $slug = str_replace("-", "_", $slug);
@@ -147,7 +149,7 @@ class TestController extends ApiController
                 $content[$lang->slug] = $langContent;
             }
             $lc = LanguageConfig::query()->firstOrCreate(['slug' => $slug], [
-                'type' => LanguageConfigType::client,
+                'type' => $type,
                 'name' => $name,
                 'content' => $content,
                 'group' => $group

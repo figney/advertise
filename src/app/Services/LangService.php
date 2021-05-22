@@ -20,7 +20,7 @@ class LangService extends BaseService
 
     public function getLang($local, $slug)
     {
-        $allLang = $this->allLang('serve');
+        $allLang = $this->allLang(LanguageConfigType::serve);
 
         $itemLang = data_get($allLang, $slug);
 
@@ -61,7 +61,7 @@ class LangService extends BaseService
     public function getIn18n($group = null)
     {
 
-        $orm = LanguageConfig::query()->where('type', 'client');
+        $orm = LanguageConfig::query()->where('type', LanguageConfigType::client);
 
         if ($group) {
             $orm->where('group', $group);
