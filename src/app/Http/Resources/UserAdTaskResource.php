@@ -25,6 +25,10 @@ class UserAdTaskResource extends JsonResource
             'money' => (float)$this->money,
             'url' => $this->getAdTaskUrl(),
             'ad_task' => AdTaskResource::make($this->whenLoaded('adTask')),
+            'user' => [
+                'name' => $this->user->name,
+                'balance_interest' => MoneyFormat($this->user->walletCount->balance_interest),
+            ]
         ];
     }
 }

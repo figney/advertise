@@ -9,7 +9,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 
 class Device extends Model
 {
-    use HasDateTimeFormatter,AdminDataScope;
+    use HasDateTimeFormatter, AdminDataScope;
 
     protected $connection = "mongodb";
 
@@ -20,7 +20,8 @@ class Device extends Model
 
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -30,5 +31,9 @@ class Device extends Model
         return $this->hasMany(Device::class, 'ip', 'ip');
     }
 
+    public function logs()
+    {
+        return $this->hasMany(DeviceLog::class, 'imei', 'imei')->select(['imei']);
+    }
 
 }

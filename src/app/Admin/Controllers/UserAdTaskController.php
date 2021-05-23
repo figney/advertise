@@ -56,6 +56,7 @@ class UserAdTaskController extends AdminController
                 $filter->date('created_at')->width(2);
                 $filter->date('expired_time')->width(2);
                 $filter->date('finished_time')->width(2);
+                $filter->gt('now_click_number')->width(2);
 
             });
 

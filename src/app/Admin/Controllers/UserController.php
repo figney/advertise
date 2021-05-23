@@ -33,7 +33,7 @@ class UserController extends AdminController
         return Grid::make(new User(), function (Grid $grid) {
 
 
-            $grid->model()->with(['invite', 'ips', 'wallet', 'channel', 'walletCount', 'withdrawOrdersChecking','vips'])->orderBy('id', 'desc');
+            $grid->model()->with(['invite', 'ips', 'wallet', 'channel', 'walletCount', 'withdrawOrdersChecking', 'vips'])->orderBy('id', 'desc');
 
             if (!$this->isAdministrator()) {
                 $grid->model()->byChannel();
@@ -111,6 +111,13 @@ class UserController extends AdminController
                 $filter->like('national_number')->width(2);
 
                 $filter->gt('recharge_count', '充值次数大于')->width(2);
+                $filter->where('is_share', function ($q) {
+                    if ($this->input == 1) {
+                        $q->where('invite_id', '>', 0);
+                    }
+                }, '邀请状态')->radio([1 => '有邀请', 0 => '直接注册'])->width(2);
+
+                $filter->date('created_at');
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {

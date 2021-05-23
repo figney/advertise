@@ -51,6 +51,8 @@ class DeviceLogController extends AdminController
                 $filter->where('user_id', function ($q) {
                     $q->where('user_id', (int)$this->input);
                 }, '用户ID')->width(2);
+
+                $filter->date('created_at')->width(2);
             });
 
 

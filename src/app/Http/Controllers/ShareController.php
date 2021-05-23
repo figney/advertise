@@ -62,6 +62,10 @@ class ShareController extends Controller
         $data['image_url'] = $image;
         $data['go_url'] = $go_url;
 
+        if (Str::contains($go_url, "s=ad")) {
+            return redirect($go_url);
+        }
+
 
         return view('share', $data);
     }

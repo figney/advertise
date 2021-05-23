@@ -236,7 +236,7 @@ class AdTaskController extends ApiController
             ]);
 
 
-            $userAdTask = UserAdTask::query()->with(['adTask', 'adTask.adData'])->find($userAdTaskId);
+            $userAdTask = UserAdTask::query()->with(['adTask', 'adTask.adData', 'user'])->find($userAdTaskId);
 
             abort_if(!$userAdTask, 400, Lang("EMPTY"));
 
