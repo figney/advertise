@@ -36,7 +36,7 @@ class VipService extends BaseService
 
     public function getUserVipLevelTaskNum(User $user, int $level)
     {
-        return $user->vips()->where('level','>=', $level)->sum('task_num');
+        return $user->vips()->where('level','=', $level)->sum('task_num');
     }
 
 
