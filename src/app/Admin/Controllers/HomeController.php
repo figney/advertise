@@ -23,6 +23,8 @@ class HomeController extends Controller
 
         $rule = \Admin::user()->roles()->pluck('name')->join(',');
 
+        collect($this->getChannelIds())->join(',');
+
         $content
             ->body("<div class='fs-25 text-bold margin-bottom'>实时数据 - $rule </div>")
             ->body(view('admin.sync-title'))
