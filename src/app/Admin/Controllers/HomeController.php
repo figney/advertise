@@ -23,10 +23,11 @@ class HomeController extends Controller
 
         $rule = \Admin::user()->roles()->pluck('name')->join(',');
 
-        collect($this->getChannelIds())->join(',');
+        $C_IDS = collect($this->getChannelIds())->join(',');
+        if ($this->isAdministrator()) $C_IDS = "全部";
 
         $content
-            ->body("<div class='fs-25 text-bold margin-bottom'>实时数据 - $rule </div>")
+            ->body("<div class='fs-25 text-bold margin-bottom'>实时数据 - $rule ID: $C_IDS</div>")
             ->body(view('admin.sync-title'))
             ->body(function (Row $row) {
                 $row->column(3, new MetricUsers());
