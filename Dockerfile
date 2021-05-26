@@ -87,7 +87,7 @@ COPY src .
 #####################################
 # 安装php依赖模块，发布队列
 #####################################
-RUN composer install
+RUN composer install --no-dev
 #
 #--------------------------------------------------------------------------
 # 完成
@@ -113,7 +113,6 @@ COPY --from=builder /scripts .
 
 RUN php artisan horizon:publish
 RUN php artisan admin:publish
-RUN php artisan optimize
 
 #####################################
 # 修改权限
