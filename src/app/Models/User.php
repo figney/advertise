@@ -127,13 +127,13 @@ class User extends Authenticatable implements JWTSubject
     //用户设备IP
     public function ips()
     {
-        return $this->hasMany(Device::class, 'ip', 'ip')->where('user_id', '>', 0);
+        return $this->hasMany(DeviceLog::class, 'ip', 'ip');
     }
 
     //用户imei设备关联
     public function device()
     {
-        return $this->hasOne(Device::class, 'imei', 'imei');
+        return $this->hasOne(DeviceLog::class, 'imei', 'imei');
     }
 
     /**
