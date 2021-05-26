@@ -10,8 +10,6 @@
     "require": {
         "php": "^8.0",
         "appstract/laravel-opcache": "^4.0",
-        "aws/aws-sdk-php-laravel": "^3.6",
-        "barryvdh/laravel-ide-helper": "^2.9",
         "bensampo/laravel-enum": "^3.3",
         "dcat/laravel-admin": "2.*",
         "dcat/laravel-log-viewer": "^0.1.5",
@@ -26,7 +24,7 @@
         "intervention/image": "^2.5",
         "jenssegers/agent": "^2.6",
         "jenssegers/mongodb": "^3.8",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "8.42.*",
         "laravel/horizon": "^5.7",
         "laravel/tinker": "^2.5",
         "medz/cors": "^1.5",
@@ -39,6 +37,7 @@
         "superbalist/laravel-google-cloud-storage": "^2.2.4"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.9",
         "facade/ignition": "^2.5",
         "knuckleswtf/scribe": "^2.5",
         "laravel/sail": "^1.0.1",
