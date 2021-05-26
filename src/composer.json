@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.0",
         "appstract/laravel-opcache": "^4.0",
+        "aws/aws-sdk-php-laravel": "^3.6",
         "bensampo/laravel-enum": "^3.3",
         "dcat/laravel-admin": "2.*",
         "dcat/laravel-log-viewer": "^0.1.5",
