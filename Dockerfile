@@ -1,5 +1,7 @@
 FROM php:8.0.3-apache as base
 
+EXPOSE 80
+
 #
 #--------------------------------------------------------------------------
 # update api-get module
@@ -7,6 +9,8 @@ FROM php:8.0.3-apache as base
 #
 
 RUN apt-get update -y
+RUN apt-get install -y cron
+RUN apt-get install -y supervisor
 RUN apt-get install -y pkg-config
 RUN apt-get install -y libcurl4-openssl-dev
 RUN apt-get install -y libssl-dev
@@ -83,10 +87,7 @@ COPY src .
 #####################################
 # 安装php依赖模块，发布队列
 #####################################
-RUN composer install
-RUN php artisan horizon:publish
-RUN php artisan admin:publish
-
+RUN composer install --optimize-autoloader --no-dev
 #
 #--------------------------------------------------------------------------
 # 完成
@@ -94,43 +95,38 @@ RUN php artisan admin:publish
 #
 FROM base as final
 
-WORKDIR /var/www/html
-
-ENV APACHE_DOCUMENT_ROOT /var/www/html
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-COPY --from=builder /scripts .
-
-RUN chmod 755 storage -R
-
-FROM final
-
-RUN apt-get update -y
-RUN apt-get install -y cron
-RUN apt-get install -y supervisor
-
-#
-#--------------------------------------------------------------------------
+#####################################
 # 配置守护进程
-#--------------------------------------------------------------------------
-#
+#####################################
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /crontabs
 ADD laravel .
 RUN crontab laravel
 
+#####################################
+# 添加源码，发布horizon和admin，执行优化
+#####################################
 WORKDIR /var/www/html
 
+COPY --from=builder /scripts .
+
+RUN php artisan horizon:publish
+RUN php artisan admin:publish
+RUN php artisan optimize
+
+#####################################
+# 修改权限
+#####################################
 RUN chmod 777 storage -R
 RUN chmod 777 public/uploads -R
 
-#ADD env ./.env
-
+#####################################
+# 设置httpd根目录
+#####################################
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-EXPOSE 80
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 CMD [ "supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
