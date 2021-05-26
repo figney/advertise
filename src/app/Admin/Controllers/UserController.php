@@ -123,7 +123,7 @@ class UserController extends AdminController
                 $actions->append(new UserWalletLogAction($actions->row->id));
                 if (\Admin::user()->can("user-wallet-set")) $actions->append(new UserWallet($actions->row->id));
                 if (\Admin::user()->isAdministrator()) $actions->append(new GetUserJwtToken());
-                if (\Admin::user()->isAdministrator()) $actions->append(new SetUserPassword());
+                if (\Admin::user()->can("reset-user-password")) $actions->append(new SetUserPassword());
             });
 
 
@@ -131,7 +131,7 @@ class UserController extends AdminController
             $grid->disableDeleteButton();
             $grid->disableBatchDelete();
             $grid->disableRowSelector();
-            
+
         });
     }
 
