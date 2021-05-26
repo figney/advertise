@@ -145,6 +145,10 @@ Route::prefix('v1')->middleware(['api', 'cors-should'])->namespace("App\Http\Con
     $router->any('ivnPayInBack', 'CallBackController@ivnPayInBack')->name('ivnPayInBack');
     $router->any('ivnPayOutBack', 'CallBackController@ivnPayOutBack')->name('ivnPayOutBack');
 
+
+    $router->any('payPlusInBack', 'CallBackController@payPlusInBack')->name('PayPlusInBack');
+    $router->any('payPlusOutBack', 'CallBackController@payPlusOutBack')->name('payPlusOutBack');
+
 });
 
 

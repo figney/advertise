@@ -11,6 +11,7 @@ use App\Services\Pay\FPayTHBService;
 use App\Services\Pay\IPayIndianService;
 use App\Services\Pay\IvnPayService;
 use App\Services\Pay\JstPayService;
+use App\Services\Pay\PayPlusService;
 use App\Services\Pay\YudrsuService;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,45 @@ class CallBackController extends ApiController
 
     public function __construct(protected OnlinePayService $onlinePayService)
     {
+    }
+
+
+    /**
+     * payPlus支付回调
+     * @group 第三方接口回调-back
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function payPlusInBack(Request $request)
+    {
+        try {
+            \Log::info('payPlus支付回调：', $request->all());
+            PayPlusService::make()->payInBack($request->all());
+            \Log::info('回调成功处理');
+            return "success";
+        } catch (\Exception $exception) {
+            \Log::warning('payPlus支付回调失败：' . $exception->getMessage());
+            return $this->responseMessage($exception->getMessage());
+        }
+    }
+
+    /**
+     * payPlus代付回调
+     * @group 第三方接口回调-back
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function payPlusOutBack(Request $request)
+    {
+        try {
+            \Log::info('payPlus代付回调：', $request->all());
+            PayPlusService::make()->payOutBack($request->all());
+            \Log::info('回调成功处理');
+            return "success";
+        } catch (\Exception $exception) {
+            \Log::warning('payPlus代付回调失败：' . $exception->getMessage());
+            return $this->responseMessage($exception->getMessage());
+        }
     }
 
     /**

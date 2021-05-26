@@ -24,6 +24,7 @@ use App\Services\Pay\HaoDaMallPayService;
 use App\Services\Pay\IPayIndianService;
 use App\Services\Pay\IvnPayService;
 use App\Services\Pay\JstPayService;
+use App\Services\Pay\PayPlusService;
 use App\Services\Pay\YudrsuService;
 use App\Services\RechargeService;
 use Carbon\Carbon;
@@ -235,6 +236,13 @@ class RechargeController extends ApiController
                     if ($pay_url) {
                         $res['pay_url'] = $pay_url;
                         $res['is_form'] = true;
+                        $res['order_sn'] = $order->order_sn;
+                        return $this->response($res);
+                    }
+                case PlatformType::PayPlus:
+                    $pay_url = PayPlusService::make()->withConfig($rechargeChannel)->payIn($user, $order, $rechargeChannelList, $redirect_url, null);
+                    if ($pay_url) {
+                        $res['pay_url'] = $pay_url;
                         $res['order_sn'] = $order->order_sn;
                         return $this->response($res);
                     }

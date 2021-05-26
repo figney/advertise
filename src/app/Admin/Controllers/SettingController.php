@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Admin\Repositories\Setting;
 use App\Enums\CountryCode;
 use App\Models\Language;
@@ -134,6 +135,15 @@ class SettingController extends AdminController
             $form->disableCreatingCheck();
             $form->disableViewButton();
             $form->disableResetButton();
+
+
+            $form->saving(function (Form $form) {
+
+                if ($form->fiat_code && $form->model()->get('fiat_code') != $form->fiat_code) {
+                    $form->rmb_money_rate = Currency::convert()->from('CNY')->to($form->fiat_code)
+                        ->get();
+                }
+            });
 
         });
     }

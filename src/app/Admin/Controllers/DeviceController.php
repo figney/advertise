@@ -8,10 +8,12 @@ use App\Models\Device;
 use App\Models\DeviceLog;
 use Carbon\Carbon;
 use DB;
+use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class DeviceController extends AdminController
@@ -85,7 +87,7 @@ class DeviceController extends AdminController
             });
             $grid->disablePerPages();
             $grid->disableCreateButton();
-            $grid->disableActions();
+            $grid->disableEditButton();
         });
     }
 
@@ -235,6 +237,12 @@ class DeviceController extends AdminController
 
         return $content;
 
+    }
+
+    protected function form()
+    {
+        return Form::make(new Device(), function (Form $form) {
+        });
     }
 
 }

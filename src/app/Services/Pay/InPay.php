@@ -22,4 +22,5 @@ interface InPay
     public function payOut(UserWithdrawOrder $userWithdrawOrder, WithdrawChannel $withdrawChannel);
 
     public function payOutBack($data);
+
 }

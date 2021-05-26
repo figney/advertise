@@ -134,18 +134,10 @@ class UserWithdrawOrderController extends AdminController
                 $item = $actions->row;
 
                 if ($this->isChannel() || $this->isAdministrator()) {
-                    if ($item->order_status === WithdrawOrderStatusType::Checking){
-                        $actions->append(WithdrawOrderRejectAction::make());
-                    }
-                    if (in_array($item->order_status, [WithdrawOrderStatusType::CheckError, WithdrawOrderStatusType::PayError]) && \Admin::user()->can('user-refund')){
-                         $actions->append(WithdrawOrderRefundAction::make());
-                    }
-                    if ($item->order_status === WithdrawOrderStatusType::Checking && \Admin::user()->can('user-refund')){
-                         $actions->append(WithdrawOrderPassAction::make());
-                    }
-                    if ($item->order_status === WithdrawOrderStatusType::Checking && \Admin::user()->can('user-refund')){
-                         $actions->append(WithdrawOrderDirectPassAction::make());
-                    }
+                    if ($item->order_status === WithdrawOrderStatusType::Checking) $actions->append(WithdrawOrderRejectAction::make());
+                    if (in_array($item->order_status, [WithdrawOrderStatusType::CheckError, WithdrawOrderStatusType::PayError]) && \Admin::user()->can('user-refund')) $actions->append(WithdrawOrderRefundAction::make());
+                    if ($item->order_status === WithdrawOrderStatusType::Checking && \Admin::user()->can('user-refund')) $actions->append(WithdrawOrderPassAction::make());
+                    if ($item->order_status === WithdrawOrderStatusType::Checking && \Admin::user()->can('user-refund')) $actions->append(WithdrawOrderDirectPassAction::make());
                     if ($item->order_status === WithdrawOrderStatusType::Paying) {
                         $actions->append(CheckUserWithdrawPayStatus::make());
                         $actions->append(WithdrawOrderRejectAction::make());

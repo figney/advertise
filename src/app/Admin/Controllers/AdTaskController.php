@@ -26,6 +26,7 @@ class AdTaskController extends AdminController
             $grid->column('complete_click_number')->sortable();
             $grid->column('total')->sortable();
             $grid->column('rest', '已接数量')->sortable();
+            $grid->column('complete_num', '完成数量')->sortable();
             $grid->column('valid_hour')->sortable();
             $grid->column('overdue_return')->bool();
             $grid->column('vip_level_max_config')->display(function ($v) {
@@ -41,7 +42,9 @@ class AdTaskController extends AdminController
             $grid->column('created_at');
 
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
+                $filter->equal('vip_level')->width(2);
+                $filter->ngt('rest','已接数量')->width(2);
+                $filter->ngt('complete_num','完成数量')->width(2);
 
             });
         });

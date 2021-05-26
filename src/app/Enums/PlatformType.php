@@ -17,6 +17,7 @@ final class PlatformType extends Enum implements LocalizedEnum
     const BananaPay = 'BananaPay';
     const IvnPay = 'IvnPay';
     const HaoDaMallPay = 'HaoDaMallPay';
+    const PayPlus = 'PayPlus';
     const Other = 'Other';
 
 }

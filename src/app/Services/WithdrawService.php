@@ -30,6 +30,7 @@ use App\Services\Pay\FPayTHBService;
 use App\Services\Pay\IPayIndianService;
 use App\Services\Pay\IvnPayService;
 use App\Services\Pay\JstPayService;
+use App\Services\Pay\PayPlusService;
 use App\Services\Pay\PaytmCashService;
 use App\Services\Pay\YudrsuService;
 use Godruoyi\Snowflake\Snowflake;
@@ -163,6 +164,9 @@ class WithdrawService extends BaseService
                 break;
             case PlatformType::IvnPay:
                 IvnPayService::make()->payOut($userWithdrawOrder, $channel);
+                break;
+            case PlatformType::PayPlus:
+                PayPlusService::make()->payOut($userWithdrawOrder, $channel);
                 break;
             default:
                 abort(400, "当前代付渠道暂未接入");

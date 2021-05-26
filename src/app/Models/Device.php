@@ -28,7 +28,7 @@ class Device extends Model
 
     public function ips()
     {
-        return $this->hasMany(DeviceLog::class, 'ip', 'ip');
+        return $this->hasMany(Device::class, 'ip', 'ip');
     }
 
     public function logs()

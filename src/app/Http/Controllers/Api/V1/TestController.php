@@ -100,7 +100,13 @@ class TestController extends ApiController
         }
 
 
-        $list = LanguageConfig::query()->where('group', 'Client')->pluck('content', 'slug');
+        $group = $request->input('group');
+
+        $orm = LanguageConfig::query();
+
+        if ($group) $orm->where('group', $group);
+
+        $list = $orm->pluck('content', 'slug');
 
         $local = $request->input('local', 'CN');
 

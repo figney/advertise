@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\WithdrawChannelListSync;
 use App\Models\Language;
 use App\Models\WithdrawChannelList;
 use Dcat\Admin\Form;
@@ -30,11 +31,16 @@ class WithdrawChannelListController extends AdminController
             $grid->column('max_money', '最高提现金额')->editable();
             $grid->column('status')->switch();
             $grid->column('order')->sortable()->editable();
+            $grid->column('input_config');
 
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
 
+            });
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new WithdrawChannelListSync());
             });
 
             $grid->disableDeleteButton();

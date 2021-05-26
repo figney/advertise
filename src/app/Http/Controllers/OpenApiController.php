@@ -16,9 +16,9 @@ class OpenApiController extends Controller
 {
     public function index(Request $request)
     {
-        $type = (int)$request->get('type');//type
-        $token = $request->get('token');//token
-        if($type == 0){//检测数据
+        $type=(int)$request->get( 'type' );//type
+        $token=$request->get( 'token' );//token
+        if($type==0){//检测数据
             $minute=(int)$request->get( 'minute' );//分钟数
             if($minute==0){
                 $minute=20;

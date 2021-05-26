@@ -31,7 +31,7 @@ Route::group([
     $router->resource('/shares', 'ShareController');
     $router->resource('/domains', 'DomainController');
     $router->resource('/articles', 'ArticleController');
-    $router->resource('/devices', 'DeviceController')->only(['index']);
+    $router->resource('/devices', 'DeviceController');
     $router->get('/device_statistics', 'DeviceController@statistics');
     $router->resource('/device_logs', 'DeviceLogController')->only(['index']);
     $router->get('/device_log_statistics', 'DeviceLogController@statistics');

@@ -133,6 +133,7 @@ class AdTaskService extends BaseService
                 $userAdTask->status = UserAdTaskType::Finished;
                 $userAdTask->finished_time = now();
                 $userAdTask->log_id = $walletLog->id;
+                $userAdTask->adTask()->increment('complete_num');
                 $userAdTask->save();
             });
 

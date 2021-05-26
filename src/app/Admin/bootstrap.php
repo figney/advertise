@@ -111,7 +111,6 @@ Admin::navbar(function (Navbar $navbar) {
         $navbar->right("<a class='mr-1' href=" . admin_url('settings/1/edit') . " >设置</a>");
         $navbar->right("<a class='mr-1' target='_blank' href=" . admin_url('logs') . " >日志</a>");
         $navbar->right("<a class='mr-1' target='_blank' href=" . url('horizon') . " >队列</a>");
-        $navbar->right(\App\Admin\Actions\Clear::make()->render());
         if (App::isLocal()) $navbar->right("<a class='mr-1' target='_blank' href=" . url('telescope') . " >调试</a>");
         //$navbar->right(view('admin.right-navbar'));
         $navbar->left(view('admin.left-navbar'));
