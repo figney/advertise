@@ -32,7 +32,6 @@ class UserController extends AdminController
     {
         return Grid::make(new User(), function (Grid $grid) {
 
-try {
             $grid->model()->with(['invite', 'ips', 'wallet', 'channel', 'walletCount', 'withdrawOrdersChecking', 'vips'])->orderBy('id', 'desc');
 
             if (!$this->isAdministrator()) {
@@ -132,10 +131,7 @@ try {
             $grid->disableDeleteButton();
             $grid->disableBatchDelete();
             $grid->disableRowSelector();
-
-            } catch (\Throwable $th) {
-                var_dump($th);
-            }
+            
         });
     }
 
