@@ -98,23 +98,24 @@ class AdTaskService extends BaseService
         //已过期
         if (Carbon::make($userAdTask->expired_time)->lt(now())) return;
 
-        if (\App::isProduction()) {
-            if ($ip == $userAdTask->ip) return;
-            if ($imei == $userAdTask->imei) return;
-            //检测IP
-            if (UserAdTaskLog::query()->where('user_ad_task_id', $userAdTask->id)
-                ->where('ip', $ip)
-                ->where('created_at', '>', Carbon::today())
-                ->exists()) return;
-            //检测IMEI
-            if (UserAdTaskLog::query()->where('user_ad_task_id', $userAdTask->id)
-                ->where('imei', $imei)
-                ->where('created_at', '>', Carbon::today())
-                ->exists()) return;
-            //检测是否时当前用户分享当广告
-            $user = $this->user();
-            if ($user && $user->id == $userAdTask->user_id) return;
-        }
+        /* 去掉检测是否为自己看广告 */
+        // if (\App::isProduction()) {
+        //     if ($ip == $userAdTask->ip) return;
+        //     if ($imei == $userAdTask->imei) return;
+        //     //检测IP
+        //     if (UserAdTaskLog::query()->where('user_ad_task_id', $userAdTask->id)
+        //         ->where('ip', $ip)
+        //         ->where('created_at', '>', Carbon::today())
+        //         ->exists()) return;
+        //     //检测IMEI
+        //     if (UserAdTaskLog::query()->where('user_ad_task_id', $userAdTask->id)
+        //         ->where('imei', $imei)
+        //         ->where('created_at', '>', Carbon::today())
+        //         ->exists()) return;
+        //     //检测是否时当前用户分享当广告
+        //     $user = $this->user();
+        //     if ($user && $user->id == $userAdTask->user_id) return;
+        // }
 
 
         UserAdTaskLog::query()->create([
@@ -420,11 +421,12 @@ class AdTaskService extends BaseService
      */
     public function disposeUserAdTask()
     {
-
+        \Log::debug("处理用户广告任务数据：" . now());
         UserAdTask::query()->where('expired_time', '<', now())
             ->where('status', UserAdTaskType::InProgress)
             ->chunkById(30, function ($list) {
                 foreach ($list as $item) {
+                    //\Log::debug("更新未完成的任务为过期：{" . $item->id . "}");
                     /**@var UserAdTask $item */
                     $item->status = UserAdTaskType::HasExpired;
                     $item->save();
@@ -438,6 +440,7 @@ class AdTaskService extends BaseService
             ->where('status', UserAdTaskType::HasExpired)
             ->chunkById(30, function ($list) {
                 foreach ($list as $item) {
+                    //\Log::debug("删除过期数据：{" . $item->id . "}");
                     /**@var UserAdTask $item */
                     //过期的任务访问记录删除
                     $item->logs()->delete();

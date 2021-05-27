@@ -48,9 +48,9 @@ class Kernel extends ConsoleKernel
 
         //执行每日结算产品结束检测
         $schedule->command('command:AdTaskDispose')
-            ->everyMinute()
-            ->runInBackground()
-            ->withoutOverlapping();
+                 ->everyMinute()
+                 ->runInBackground()
+                 ->withoutOverlapping();
 
 
         //获取usdt地址
@@ -66,7 +66,6 @@ class Kernel extends ConsoleKernel
         /*$schedule->command("command:GetUsdtToMoneyRate")
             ->runInBackground()
             ->everyTenMinutes();*/
-
     }
 
     /**
