@@ -63,9 +63,9 @@ class YudrsuService extends BaseService
         $data["sign"] = $this->sign($data);
 
 
-        \Log::debug("Yudrsu request: " . json_encode($data));
+        \Log::debug("Yudrsu payIn request: " . json_encode($data));
         $res = \Http::post("{$this->payInHost}/ty/orderPay", $data);
-        \Log::debug("Yudrsu response: " . $res);
+        \Log::debug("Yudrsu payIn response: " . $res);
         abort_if($res->clientError(), $res->status(), "The request failed");
         $res_data = $res->json();
 
@@ -160,7 +160,9 @@ class YudrsuService extends BaseService
 
         $data['sign'] = $this->sign($data);
 
+        \Log::debug("Yudrsu payOut request: " . json_encode($data));
         $res = \Http::post("{$this->payOurHost}/withdraw/singleOrder", $data);
+        \Log::debug("Yudrsu payOut response: " . $res);
         abort_if($res->clientError(), $res->status(), "请求失败");
         $re_data = $res->json();
 
