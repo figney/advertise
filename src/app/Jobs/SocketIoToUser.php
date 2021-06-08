@@ -25,7 +25,7 @@ class SocketIoToUser implements ShouldQueue
 
     public function handle()
     {
-        $push_url = Setting('socket_url') . '/push/toUser';
+        $push_url = Setting('socket_url') . '/notify/user';
 
         $data['event'] = $this->event;
         $data['data'] = $this->data;
@@ -33,7 +33,7 @@ class SocketIoToUser implements ShouldQueue
         $user_info = UserService::make()->getUserInfo($this->user);
         $data['data']['user_info'] = json_decode(UserResource::make($user_info)->toJson(), true);
 
-        \Http::post($push_url, $data);
+        \Http::put($push_url, $data);
 
     }
 }

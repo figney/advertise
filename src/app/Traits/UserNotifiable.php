@@ -10,6 +10,8 @@ use App\Jobs\SocketIoToUser;
 use App\Models\Notification;
 use App\Models\Notifications\BaseNotification;
 use App\Models\User;
+use App\Services\UserService;
+use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 
 
@@ -36,7 +38,6 @@ trait UserNotifiable
             'read_time' => now(),
             'is_read' => false,
         ]);
-
         if ($notification->socket) {
 
             try {
@@ -44,7 +45,19 @@ trait UserNotifiable
                     $notification->local = $user->local;
                     $data = json_decode(NotificationResource::make($notification)->toJson(), true);
                     $data['notifications_count'] = $user->unreadNotifications()->count();
-                    dispatch(new SocketIoToUser($user, 'notification', $data))->onQueue(QueueType::send);
+
+                    $push_url = Setting('socket_url') . 'api/notify/user/' . $user->id;
+
+                    $user_info = UserService::make()->getUserInfo($user);
+                    $data['user_info'] = json_decode(UserResource::make($user_info)->toJson(), true);
+                    
+                    \Log::info($push_url . '===' . json_encode($data));
+
+                    $res = \Http::put($push_url, $data);
+
+                    \Log::info($res);
+
+                    //dispatch(new SocketIoToUser($user, 'notification', $data))->onQueue(QueueType::send);
                 }
             } catch (\Exception $exception) {
                 \Log::warning("notify 失败：" . $exception->getMessage());

@@ -1,5 +1,6 @@
 <div class="row" id="sync-title">
     <template>
+        <!-- 服务器时间 -->
         <div class="col-lg-2">
             <div class="card">
                 <div class="info-box bg-transparent" style="margin-bottom: 0;">
@@ -7,12 +8,13 @@
                     <div class="info-box-content">
                         <span class="info-box-text">
                             <span class="mr-1">服务器时间</span>
-                            <el-button type="text" size="mini" disabled icon="el-icon-refresh-right">刷新</el-button></span>
+                            <el-button type="text" size="mini" icon="el-icon-refresh-right">刷新</el-button></span>
                         <span class="fs-20">@{{time|localTime}}</span>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- 在线设备 -->
         <div class="col-lg-2">
             <div class="card">
                 <div class="info-box bg-transparent" style="margin-bottom: 0;">
@@ -28,7 +30,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <!-- 签到 -->
+        <!-- <div class="col-lg-3">
             <div class="card">
                 <div class="info-box bg-transparent" style="margin-bottom: 0;">
                     <span class="info-box-icon"><i class="fa fa-sign-in"></i></span>
@@ -54,7 +57,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </template>
 </div>
 <script>

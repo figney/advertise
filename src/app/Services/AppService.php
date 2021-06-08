@@ -94,11 +94,11 @@ class AppService extends BaseService
      */
     public function getOnlineNumber()
     {
-        $get_url = Setting('socket_url');
+        $get_url = Setting('socket_url') . 'api/online/count';
 
-        $res = \Http::get($get_url)->collect();
+        $res = \Http::get($get_url);
 
-        return $res->get('allUserNum', 0);
+        return $res;
     }
 
 }

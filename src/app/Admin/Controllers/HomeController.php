@@ -27,19 +27,17 @@ class HomeController extends Controller
             ->body("<div class='fs-25 text-bold margin-bottom'>实时数据 - $rule </div>")
             ->body(view('admin.sync-title'))
             ->body(function (Row $row) {
-                $row->column(3, new MetricUsers());
-                $row->column(3, new MetricRechargePayRate());
+                $row->column(6, new MetricUsers());
+                $row->column(6, new MetricRechargePayRate());
             })
             ->body(function (Row $row) {
-
                 $row->column(6, new MetricRecharge());
                 $row->column(6, new MetricWithdraw());
-
             })
             ->body("<div class='fs-25 text-bold padding-bottom'>统计数据</div>")
             ->body(function (Row $row) {
-                $row->column(4, new MetricSumWallet());
-                $row->column(4, new MetricRechargeChannel());
+                $row->column(6, new MetricSumWallet());
+                $row->column(6, new MetricRechargeChannel());
             });
 
         if (\Admin::user()->isAdministrator()) {

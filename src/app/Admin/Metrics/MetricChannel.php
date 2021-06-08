@@ -23,7 +23,6 @@ class MetricChannel extends Card
         $this->title("渠道统计");
 
         $this->dropdown([
-            'select' => '选择时间',
             'today' => '今日',
             'yesterday' => '昨日',
             'all' => '全部',
@@ -33,28 +32,28 @@ class MetricChannel extends Card
 
     public function handle(Request $request)
     {
-        $option = $request->get('option');
+        $option = $request->get('option', 'today');
 
         if (!$option || $option == "select") {
             $this->content("<div class='padding-lr margin-top'>
-<div class='alert alert-warning'>在右上角选择时间</div>
-</div>");
+                                <div class='alert alert-warning'>在右上角选择时间</div>
+                            </div>");
             return;
         }
 
         $channels = Channel::query()->get();
 
         $html = "<div class='row text-bold'>
-<div class='col-lg-1'>渠道</div>
-<div class='col-lg-1'>设备</div>
-<div class='col-lg-1'>用户</div>
-<div class='col-lg-1'>注册率</div>
-<div class='col-lg-1'>提交订单人数</div>
-<div class='col-lg-1'>充值人数</div>
-<div class='col-lg-1'>充值率/成功率</div>
-<div class='col-lg-2'>充值金额</div>
-<div class='col-lg-1'>人均充值 </div>
-</div>";
+                    <div class='col-lg-1'>渠道</div>
+                    <div class='col-lg-1'>设备</div>
+                    <div class='col-lg-1'>用户</div>
+                    <div class='col-lg-1'>注册率</div>
+                    <div class='col-lg-1'>提交订单人数</div>
+                    <div class='col-lg-1'>充值人数</div>
+                    <div class='col-lg-1'>充值率/成功率</div>
+                    <div class='col-lg-2'>充值金额</div>
+                    <div class='col-lg-1'>人均充值 </div>
+                </div>";
 
         foreach ($channels as $channel) {
             $channel_ids = [$channel->id];
