@@ -9,8 +9,6 @@ EXPOSE 80
 #
 
 RUN apt-get update -y
-RUN apt-get install -y cron
-RUN apt-get install -y supervisor
 RUN apt-get install -y pkg-config
 RUN apt-get install -y libcurl4-openssl-dev
 RUN apt-get install -y libssl-dev
@@ -96,15 +94,6 @@ RUN composer install --no-dev
 FROM base as final
 
 #####################################
-# 配置守护进程
-#####################################
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-WORKDIR /crontabs
-ADD laravel .
-RUN crontab laravel
-
-#####################################
 # 添加源码，发布horizon和admin，执行优化
 #####################################
 WORKDIR /var/www/html
@@ -128,4 +117,4 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-CMD [ "supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
+CMD [ "apache2-foreground" ]
