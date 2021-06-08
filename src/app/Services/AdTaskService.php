@@ -98,26 +98,6 @@ class AdTaskService extends BaseService
         //已过期
         if (Carbon::make($userAdTask->expired_time)->lt(now())) return;
 
-        /* 去掉检测是否为自己看广告 */
-        // if (\App::isProduction()) {
-        //     if ($ip == $userAdTask->ip) return;
-        //     if ($imei == $userAdTask->imei) return;
-        //     //检测IP
-        //     if (UserAdTaskLog::query()->where('user_ad_task_id', $userAdTask->id)
-        //         ->where('ip', $ip)
-        //         ->where('created_at', '>', Carbon::today())
-        //         ->exists()) return;
-        //     //检测IMEI
-        //     if (UserAdTaskLog::query()->where('user_ad_task_id', $userAdTask->id)
-        //         ->where('imei', $imei)
-        //         ->where('created_at', '>', Carbon::today())
-        //         ->exists()) return;
-        //     //检测是否时当前用户分享当广告
-        //     $user = $this->user();
-        //     if ($user && $user->id == $userAdTask->user_id) return;
-        // }
-
-
         UserAdTaskLog::query()->create([
             'user_ad_task_id' => $userAdTask->id,
             'ip' => $ip,
@@ -138,17 +118,13 @@ class AdTaskService extends BaseService
                 $userAdTask->save();
             });
 
+            \Log::info(11111111111);
             $user->notify(new UserAdTaskFinishedNotification($money, $userAdTask));
 
+            \Log::info(22222222222);
             UserHookService::make()->adTaskFinishedHook($userAdTask);
-        } else {
-            dispatch(new SocketIoToUser($user, 'ad_task_click', [
-                'ad_task_id' => $userAdTask->ad_task_id,
-                'now_click_number' => $userAdTask->now_click_number,
-                'complete_click_number' => $userAdTask->complete_click_number,
-            ]))->onQueue(QueueType::send);
+            \Log::info(33333333333);
         }
-
 
     }
 
@@ -197,7 +173,7 @@ class AdTaskService extends BaseService
 
             //用户未开通VIP
             if (!$invite_user_vip) {
-                $invite_user->notify(new UserAdTaskCommissionNotification(0, $all_fee, true, false, $i, $adTask->vip_level, $invite_user_vip->level, $user, $userAdTask));
+                $invite_user->notify(new UserAdTaskCommissionNotification(0, $all_fee, true, false, $i, $adTask->vip_level, 0, $user, $userAdTask));
                 continue;
             }
 

@@ -51,11 +51,7 @@ trait UserNotifiable
                     $user_info = UserService::make()->getUserInfo($user);
                     $data['user_info'] = json_decode(UserResource::make($user_info)->toJson(), true);
                     
-                    \Log::info($push_url . '===' . json_encode($data));
-
                     $res = \Http::put($push_url, $data);
-
-                    \Log::info($res);
 
                     //dispatch(new SocketIoToUser($user, 'notification', $data))->onQueue(QueueType::send);
                 }
