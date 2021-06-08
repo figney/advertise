@@ -225,7 +225,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'local',
+        'disk' => env('UPLOAD_DIRVER', 'local'),
 
         // Image and file upload path under the disk above.
         'directory' => [
