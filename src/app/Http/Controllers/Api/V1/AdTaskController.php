@@ -11,6 +11,7 @@ use App\Http\Resources\UserAdTaskResource;
 use App\Models\UserAdTask;
 use App\Services\AdTaskService;
 use Illuminate\Http\Request;
+use App\Services\AppService;
 
 class AdTaskController extends ApiController
 {
@@ -20,6 +21,38 @@ class AdTaskController extends ApiController
     }
 
 
+    public function share1(Request $request)
+    {
+        $this->validatorData($request->all(), [
+            'uat' => 'required|integer',
+            'lang' => 'required',
+        ]);
+
+        $local = $request->input('lang');
+        $uat = $request->input('uat');
+        $local = AppService::make()->local($local);
+
+        $data = [];
+
+        $userAdTask = UserAdTask::query()->find($uat);
+        $adTask = $userAdTask->adTask;
+        $title = data_get($adTask->adData->share_content, $local);
+        $content = data_get($adTask->adData->content,$local);
+        $describe = data_get($adTask->adData->describe, $local);
+        $image = ImageUrl($adTask->adData->share_image);
+
+        $title = str_replace("{URL}", "", $title);
+
+        $data['app_id'] = '';
+        $data['site_name'] = '';
+        $data['content'] = $content;
+        $data['title'] = $title;
+        $data['description'] = $describe;
+        $data['image_url'] = $image;
+
+
+        return $data;
+    }
     /**
      * 获取广告任务列表-adTaskList
      * @queryParam level int 等级 0为免费
