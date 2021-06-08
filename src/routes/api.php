@@ -124,6 +124,7 @@ Route::prefix('v1')->middleware(['api', 'cors-should'])->namespace("App\Http\Con
         $router->get('userAdTaskList', 'AdTaskController@userAdTaskList');
         $router->get('userAdTaskDetails', 'AdTaskController@userAdTaskDetails');
 
+        $router->get('at1', 'AdTaskController@share1');
 
     });
 

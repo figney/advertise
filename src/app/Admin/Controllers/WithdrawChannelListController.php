@@ -36,7 +36,8 @@ class WithdrawChannelListController extends AdminController
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-
+                $filter->equal('name');
+                $filter->equal('bank_code');
             });
 
             $grid->actions(function (Grid\Displayers\Actions $actions) {
