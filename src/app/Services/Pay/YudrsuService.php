@@ -23,8 +23,8 @@ class YudrsuService extends BaseService
     protected string $key;
     protected string $countryCode;
 
-    protected string $payInAddress = "http://gyials.gdsua.com";
-    protected string $payOutAddress = "http://njsyal.gdsua.com";
+    protected string $payInAddress;
+    protected string $payOutAddress;
 
 
     public function withConfig(RechargeChannel $rechargeChannel)
@@ -33,8 +33,8 @@ class YudrsuService extends BaseService
         $this->mer_no = $rechargeChannel->configValue('mer_no');
         $this->key = $rechargeChannel->configValue('key');
         $this->countryCode = $rechargeChannel->configValue('countryCode');
-        $this->payInAddress - $rechargeChannel->configValue('payInAddress');
-        $this->payOutAddress - $rechargeChannel->configValue('payOutAddress');
+        $this->payInAddress = $rechargeChannel->configValue('payInAddress');
+        $this->payOutAddress = $rechargeChannel->configValue('payOutAddress');
 
         return $this;
 
