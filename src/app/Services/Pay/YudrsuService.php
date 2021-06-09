@@ -24,7 +24,6 @@ class YudrsuService extends BaseService
     protected string $countryCode;
 
     protected string $payInAddress;
-    protected string $payOutAddress;
 
 
     public function withConfig(RechargeChannel $rechargeChannel)
@@ -34,7 +33,6 @@ class YudrsuService extends BaseService
         $this->key = $rechargeChannel->configValue('key');
         $this->countryCode = $rechargeChannel->configValue('countryCode');
         $this->payInAddress = $rechargeChannel->configValue('payInAddress');
-        $this->payOutAddress = $rechargeChannel->configValue('payOutAddress');
 
         return $this;
 
@@ -148,6 +146,7 @@ class YudrsuService extends BaseService
     {
         $this->mer_no = $withdrawChannel->configValue('mer_no');
         $this->key = $withdrawChannel->configValue('key');
+        $payOutAddress = $withdrawChannel->configValue('payOutAddress');
 
         $data['mer_no'] = $this->mer_no;
         $data['mer_order_no'] = $userWithdrawOrder->order_sn;
@@ -163,7 +162,7 @@ class YudrsuService extends BaseService
         $data['sign'] = $this->sign($data);
 
         \Log::debug("Yudrsu payOut request: " . json_encode($data));
-        $res = \Http::post("{$this->payOutAddress}/withdraw/singleOrder", $data);
+        $res = \Http::post("{$payOutAddress}/withdraw/singleOrder", $data);
         \Log::debug("Yudrsu payOut response: " . $res);
         abort_if($res->clientError(), $res->status(), "请求失败");
         $re_data = $res->json();
