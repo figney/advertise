@@ -48,8 +48,8 @@ return [
         ],
         'gcs' => [
             'driver' => 'gcs',
-            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'advertise-master'),
-            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'advertise-thailand'),
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'vietnam-advertise'),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'advertise-vietnam'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', "uploads"),
             'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null),
             'visibility' => 'public', // optional: public|private
