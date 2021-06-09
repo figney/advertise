@@ -145,28 +145,28 @@ class WithdrawService extends BaseService
                 LaoSunService::make()->setConfig($api_key, $api_key_v2, $merchant_id)->cash($userWithdrawOrder);
                 break;
             case PlatformType::PayTM:
-                OnlinePayService::make()->paytmCashPayOut($userWithdrawOrder, $channel);
+                OnlinePayService::make()->withConfigWithdraw($channel)->paytmCashPayOut($userWithdrawOrder, $channel);
                 break;
             case PlatformType::IPayIndian:
-                IPayIndianService::make()->payOut($userWithdrawOrder, $channel);
+                IPayIndianService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder, $channel);
                 break;
             case PlatformType::FPay:
                 FPayTHBService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder);
                 break;
             case PlatformType::Yudrsu:
-                YudrsuService::make()->payOut($userWithdrawOrder, $channel);
+                YudrsuService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder, $channel);
                 break;
             case PlatformType::JstPay:
-                JstPayService::make()->payOut($userWithdrawOrder, $channel);
+                JstPayService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder, $channel);
                 break;
             case PlatformType::BananaPay:
-                BananaPayService::make()->payOut($userWithdrawOrder, $channel);
+                BananaPayService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder, $channel);
                 break;
             case PlatformType::IvnPay:
-                IvnPayService::make()->payOut($userWithdrawOrder, $channel);
+                IvnPayService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder, $channel);
                 break;
             case PlatformType::PayPlus:
-                PayPlusService::make()->payOut($userWithdrawOrder, $channel);
+                PayPlusService::make()->withConfigWithdraw($channel)->payOut($userWithdrawOrder, $channel);
                 break;
             default:
                 abort(400, "当前代付渠道暂未接入");
