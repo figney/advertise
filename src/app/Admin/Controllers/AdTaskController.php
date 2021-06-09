@@ -137,7 +137,7 @@ class AdTaskController extends AdminController
 
                 $form->image('icon', '任务图标')->autoUpload()->uniqueName()->required()->width(2)->compress([
                     'width' => 200,
-                    'height' => 2000,
+                    'height' => 200,
                     'quality' => 90,
                     'crop' => true,
                 ])->help('200x200');
