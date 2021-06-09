@@ -23,8 +23,8 @@ class YudrsuService extends BaseService
     protected string $key;
     protected string $countryCode;
 
-    protected string $payInHost = "http://zvfdh.yudrsu.com";
-    protected string $payOurHost = "http://wrysc.yudrsu.com";
+    protected string $payInAddress = "http://gyials.gdsua.com";
+    protected string $payOutAddress = "http://njsyal.gdsua.com";
 
 
     public function withConfig(RechargeChannel $rechargeChannel)
@@ -33,6 +33,8 @@ class YudrsuService extends BaseService
         $this->mer_no = $rechargeChannel->configValue('mer_no');
         $this->key = $rechargeChannel->configValue('key');
         $this->countryCode = $rechargeChannel->configValue('countryCode');
+        $this->payInAddress - $rechargeChannel->configValue('payInAddress');
+        $this->payOutAddress - $rechargeChannel->configValue('payOutAddress');
 
         return $this;
 
@@ -64,7 +66,7 @@ class YudrsuService extends BaseService
 
 
         \Log::debug("Yudrsu payIn request: " . json_encode($data));
-        $res = \Http::post("{$this->payInHost}/ty/orderPay", $data);
+        $res = \Http::post("{$this->payInAddress}/ty/orderPay", $data);
         \Log::debug("Yudrsu payIn response: " . $res);
         abort_if($res->clientError(), $res->status(), "The request failed");
         $res_data = $res->json();
@@ -161,7 +163,7 @@ class YudrsuService extends BaseService
         $data['sign'] = $this->sign($data);
 
         \Log::debug("Yudrsu payOut request: " . json_encode($data));
-        $res = \Http::post("{$this->payOurHost}/withdraw/singleOrder", $data);
+        $res = \Http::post("{$this->payOutAddress}/withdraw/singleOrder", $data);
         \Log::debug("Yudrsu payOut response: " . $res);
         abort_if($res->clientError(), $res->status(), "请求失败");
         $re_data = $res->json();
