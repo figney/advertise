@@ -25,6 +25,7 @@ class UserResource extends JsonResource
             'parent' => FriendResource::make($this->whenLoaded('parent')),//上级数据
             'invite' => UserInviteResource::make($this->whenLoaded('invite')),//邀请数据
             'invite_award' => (float)data_get($this->whenLoaded('inviteAward'), 'give_balance'),//下线总收益
+            'invite_commission' => (float)data_get($this->whenLoaded('inviteAward'), 'all_commission'),
             'wallet' => UserWalletResource::make($this->whenLoaded('wallet')),//钱包数据
             'vip' => UserVipResource::collection($this->whenLoaded('vips')),//VIP数据
             //'money_bao' => UserMoneyBaoResource::make($this->whenLoaded('moneyBao')),//赚钱宝数据
