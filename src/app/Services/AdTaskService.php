@@ -118,12 +118,9 @@ class AdTaskService extends BaseService
                 $userAdTask->save();
             });
 
-            \Log::info(11111111111);
             $user->notify(new UserAdTaskFinishedNotification($money, $userAdTask));
 
-            \Log::info(22222222222);
             UserHookService::make()->adTaskFinishedHook($userAdTask);
-            \Log::info(33333333333);
         }
 
     }

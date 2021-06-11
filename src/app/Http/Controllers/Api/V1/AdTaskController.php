@@ -259,8 +259,6 @@ class AdTaskController extends ApiController
     {
         $userAdTaskId = $request->input("uat");
 
-        \Log::info($userAdTaskId);
-
         $lock = \Cache::lock('adTaskCheck:' . $userAdTaskId, 10);
 
         try {
@@ -277,7 +275,6 @@ class AdTaskController extends ApiController
 
             $this->adTaskService->userAdTaskLog($userAdTask);
 
-            \Log::info('2222');
             return $this->response(['user_ad_task' => UserAdTaskResource::make($userAdTask)]);
 
         } catch (\Exception $exception) {
